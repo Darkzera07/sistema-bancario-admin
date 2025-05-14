@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class Mysql {
 	
-	private static final String URL = "jdbc:mysql://localhost:3306/sistema-bancario";
+	private static final String URL = "jdbc:mysql://localhost:3306/sistema_bancario";
 	private static final String USER = "root";
 	private static final String PASS = "admin";
 	public static Connection connect(){

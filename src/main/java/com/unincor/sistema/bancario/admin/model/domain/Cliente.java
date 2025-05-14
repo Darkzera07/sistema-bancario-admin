@@ -15,14 +15,15 @@ public class Cliente extends Pessoa {
 	private Long idCliente;
 	
 
-	public Cliente(Long idCliente, String nome, String cpf, LocalDate dataNascimento, String email, String telefone, String senha_hash, Integer idAgencia) {
+	public Cliente(Long idCliente, String nome, String cpf, LocalDate dataNascimento, String email, 
+		String telefone, String senhaHash) {
 		this.idCliente = idCliente;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
 		this.email = email;
 		this.telefone = telefone;
-		this.senha_hash = senha_hash;
+		this.senhaHash = senhaHash;
 	}
 
 	public Cliente() {
@@ -36,6 +37,7 @@ public class Cliente extends Pessoa {
 		this.idCliente = idCliente;
 	}
 
+	
 }
 
 	
