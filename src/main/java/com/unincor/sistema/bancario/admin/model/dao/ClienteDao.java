@@ -43,35 +43,55 @@ public class ClienteDao {
 	public List<Cliente> buscarTodosClientes() {
 		List<Cliente> clientes = new ArrayList<>();
 		String sql = "SELECT * FROM clientes";
-		try (Connection con = Mysql.connect();
-			PreparedStatement ps = con.prepareStatement(sql)) {
+		try (Connection con = Mysql.connect(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()){
-				Cliente cliente = new Cliente();
-				cliente.setIdCliente(rs.getLong("id_cliente"));
-				cliente.setNome(rs.getString("nome"));
-				cliente.setCpf(rs.getString("cpf"));
-				cliente.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
-				cliente.setEmail(rs.getString("email"));
-				cliente.setTelefone(rs.getString("telefone"));
-				cliente.setSenhaHash(rs.getString("senha_hash"));
+			while (rs.next()) {
+				var cliente = construirClienteSql(rs);
 				clientes.add(cliente);
-				
+
 			}
-	}	catch (SQLException ex) {
+		} catch (SQLException ex) {
 			Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return clientes;
 	}
 
+	public Cliente buscarClientePorId(Long id_cliente) {
+		String sql = "SELECT * FROM clientes WHERE id_cliente = ?";
+		try (Connection con = Mysql.connect(); PreparedStatement ps = con.prepareStatement(sql)) {
+			ps.setLong(1, id_cliente);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+                         return construirClienteSql(rs);
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
+	}
+
+	public Cliente construirClienteSql(ResultSet rs) throws SQLException {
+		Cliente cliente = new Cliente();
+		cliente.setIdCliente(rs.getLong("id_cliente"));
+		cliente.setNome(rs.getString("nome"));
+		cliente.setCpf(rs.getString("cpf"));
+		cliente.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+		cliente.setEmail(rs.getString("email"));
+		cliente.setTelefone(rs.getString("telefone"));
+		cliente.setSenhaHash(rs.getString("senha_hash"));
+		return cliente;
+
+	}
+
 	public static void main(String[] args) {
-		Cliente cliente = new Cliente(null, "Diogenes", "21324654", 
-			LocalDate.now(), "prof.diogenes.francisco@unincor.edu.br", 
-			"4564654897", "389102312749128903");
+		//Cliente cliente = new Cliente(null, "Diogenes", "21324654",
+			//LocalDate.now(), "prof.diogenes.francisco@unincor.edu.br",//
+			//"4564654897", "389102312749128903");//
 		ClienteDao clienteDao = new ClienteDao();
-		var clientes = clienteDao.buscarTodosClientes();
-		clientes.forEach(c -> System.out.println("id:" + c.getIdCliente()+ "Nome:" + c.getNome()));
-		
+		//var clientes = clienteDao.buscarTodosClientes();//
+		//clientes.forEach(c -> System.out.println("id:" + c.getIdCliente() + "Nome:" + c.getNome()));//
+		var c = clienteDao.buscarClientePorId(1l);
+		System.out.println("id: " + c.getIdCliente() + "Nome: " + c.getNome());
+
 	}
 }
-
