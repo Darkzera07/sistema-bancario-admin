@@ -51,11 +51,25 @@ public class AgenciaDao {
 		}
 		return agencias;
 	}
-
-	public Agencia buscarAgenciaPorId(Long id) {
+	
+	public Agencia buscarAgenciaPorId(Long idAgencia) {
 		String sql = "SELECT * FROM Agencias where id_agencia = ?";
 		try (Connection con = Mysql.connect(); PreparedStatement ps = con.prepareStatement(sql)) {
-			ps.setLong(1, id);
+			ps.setLong(1,idAgencia);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return construirAgenciaSql(rs);
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(AgenciaDao.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
+	}
+
+	public Agencia buscarAgenciaPorCodigoAgencia(String codigoAgencia) {
+		String sql = "SELECT * FROM Agencias where codigo_agencia = ?";
+		try (Connection con = Mysql.connect(); PreparedStatement ps = con.prepareStatement(sql)) {
+			ps.setString(1, codigoAgencia);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				return construirAgenciaSql(rs);
