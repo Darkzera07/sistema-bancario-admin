@@ -7,6 +7,7 @@ package com.unincor.sistema.bancario.admin.model.services;
 import com.unincor.sistema.bancario.admin.model.dao.AgenciaDao;
 import com.unincor.sistema.bancario.admin.model.domain.Agencia;
 import com.unincor.sistema.bancario.admin.model.exception.CadastroException;
+import java.util.List;
 
 /**
  *
@@ -32,16 +33,10 @@ public class AgenciaServices {
 		
 		agenciaDao.inserirAgencia(agencia);
 	}
-	//public static void main(String[] args) {
-		//AgenciaServices agenciaServices = new AgenciaServices();
-		
-		//Agencia agencia = new Agencia( null, null, "Três Corações", "MG",
-		//"Rei Pelé", "468798", "374100000" );
-		
-		//try {
-			//agenciaServices.salvarAgencia(agencia);
-		//} catch (CadastroException) {
-			
-		//}
-	//}
+	
+	public List<Agencia> buscarAgencias () {
+		return agenciaDao.listarTodasAgencias();
+	}
+	
+	
 }
