@@ -15,16 +15,20 @@ public class Gerente extends Pessoa {
 	
 	private  Agencia agencia;
 
-	public Gerente() {
-	}
+    public long getIdGerente() {
+        return idGerente;
+    }
 
-	public long getIdGerente() {
-		return idGerente;
-	}
+    public void setIdGerente(long idGerente) {
+        this.idGerente = idGerente;
+    }
 
-	public Agencia getAgencia() {
-		return agencia;
-	}
+    public Agencia getAgencia() {
+        return agencia;
+    }
 
-	
+    public void setAgencia(Agencia agencia) {
+        this.agencia = agencia;
+    }
 }
+
