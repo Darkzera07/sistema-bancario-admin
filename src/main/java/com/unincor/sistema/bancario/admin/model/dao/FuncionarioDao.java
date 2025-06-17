@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * @author alunos
  */
 public class FuncionarioDao extends Pessoa {
-	public void inserirFuncionario(Funcionario funcionario){
+	public Funcionario inserirFuncionario(Funcionario funcionario){
 		String sql ="INSERT INTO funcionarios(nome, cpf, data_nascimento,"
 			+ "email, telefone, senha_hash, turno)VALUES (?, ?, ?, ?, ?, ?, ?,)";
 		try {Connection con = Mysql.connect(); PreparedStatement ps = con.prepareStatement(sql);{
@@ -36,5 +36,15 @@ public class FuncionarioDao extends Pessoa {
 		} catch (SQLException ex) {
 			Logger.getLogger(FuncionarioDao.class.getName()).log(Level.SEVERE, null, ex);
 		}
+	return funcionario;	
+		
 	}
+	
+	public Funcionario buscarFuncionarioPorId(Long id_funcionario){
+		String sql = "SELECT * FROM funcionarios"
+		
+		
+	}
+
+
 }
